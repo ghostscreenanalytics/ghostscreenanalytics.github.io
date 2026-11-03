@@ -91,10 +91,11 @@ svg text{font-size:10px;fill:var(--mute)}
 .legend i{display:inline-block;width:12px;height:3px}
 details{margin-top:10px}summary{cursor:pointer;font-weight:600;font-size:.86rem}
 </style>
-<link rel="stylesheet" href="/three-gate-defense/assets/site.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/icon.svg">
 </head>
 <body>
-<header class="mast"><div><a class="brand" href="/three-gate-defense/">Ghost Screen Analytics</a><nav><a href="/three-gate-defense/">Home</a><div class="dd on"><a href="/three-gate-defense/models/">Models</a><div class="menu"><a href="/three-gate-defense/forecast/" aria-current="page">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="/three-gate-defense/defense/">Three Gates<small>Rim protection explorer</small></a><a href="/three-gate-defense/durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="/three-gate-defense/college/">College to NBA<small>Draft prospects, scored</small></a><a href="/three-gate-defense/breakout/">Breakout<small>Who is about to improve</small></a><a href="/three-gate-defense/aging/">Aging Curve<small>Who is about to decline</small></a></div></div></nav></div></header>
+<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd on"><a href="../models/">Models</a><div class="menu"><a href="../forecast/" aria-current="page">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/">News</a><a href="../work/">Work with us</a><a class="sub" href="https://thelowpost.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
 <h1>2026-27 Season Forecast</h1>
 <p class="dek">We play out the rest of the season a million times every morning: every game, every injury, the play-in, the playoffs, the lottery and the awards. Every number here is the share of those seasons in which it happened.</p>
@@ -158,7 +159,7 @@ details{margin-top:10px}summary{cursor:pointer;font-weight:600;font-size:.86rem}
 </div>
 
 <h2>Test record</h2>
-<p class="key">Every bar below was written down before the test was run and is in <a href="https://github.com/TheLowPostHoops/three-gate-defense/blob/main/pipeline/FORECAST_PREREG.txt">FORECAST_PREREG.txt</a>. Each season was predicted using only the seasons before it. Failed tests stay on the page.</p>
+<p class="key">Every bar below was written down before the test was run and is in <a href="https://github.com/TheLowPostHoops/ghost-screen-analytics/blob/main/pipeline/FORECAST_PREREG.txt">FORECAST_PREREG.txt</a>. Each season was predicted using only the seasons before it. Failed tests stay on the page.</p>
 <div class="tablewrap"><table class="tests" id="tests"><thead><tr><th class="ns l">Test</th><th class="ns l">Question</th><th class="ns l">Bar</th><th class="ns l">Result</th><th class="ns">Verdict</th></tr></thead><tbody></tbody></table></div>
 <div id="calib" class="chart" style="max-width:420px;margin-top:18px"></div>
 
@@ -274,5 +275,6 @@ function calib(){const C=F.backtest.calib.filter(c=>c.n>=100);const w=400,h=220,
  s+=`<text x="${X(.5)}" y="${h+28}" text-anchor="middle">Predicted home win chance (preseason)</text></svg>`;
  $('#calib').innerHTML='<h3>Does 70% mean 70%?</h3>'+s+`<p class="note">Every regular-season game from ${F.backtest.seasons}, grouped by the home team's predicted chance before the season. The closer the dots sit to the diagonal, the more the odds mean what they say.</p>`}
 </script>
+<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://thelowpost.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://thelowpost.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
 </body>
 </html>
