@@ -6,7 +6,7 @@ import os, json, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "data", "news.json")
-URL = "https://thelowpost.substack.com/api/v1/archive?sort=new&limit=30"
+URL = "https://ghostscreenanalytics.substack.com/api/v1/archive?sort=new&limit=30"
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
             if p.get("audience") in ("everyone", "only_free", None) and p.get("type") in ("newsletter", "podcast", None) and p.get("canonical_url")]
     if not rows:
         print("no posts returned, keeping the old list"); return
-    new = dict(source="https://thelowpost.substack.com", posts=rows)
+    new = dict(source="https://ghostscreenanalytics.substack.com", posts=rows)
     old = json.load(open(OUT)) if os.path.exists(OUT) else {}
     if old.get("posts") == rows:
         print("newsletter list unchanged"); return
