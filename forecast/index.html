@@ -117,6 +117,11 @@ details{margin-top:10px}summary{cursor:pointer;font-weight:600;font-size:.86rem}
 <p class="key">Some teams are harder to call than others. Teams bringing back fewer of last season's minutes, and teams leaning on rookies, land further from their projections. The <b>schedule</b> column is how many wins each team's remaining schedule adds or costs, from rest, back-to-backs, travel and altitude. <b>Breakout</b> is the chance a team beats its projection by 8 or more wins. <b>Collapse</b> is the chance it falls 8 or more short.</p>
 <div class="tablewrap"><table id="sp"><thead></thead><tbody class="click"></tbody></table></div>
 
+<h2>Injuries in the forecast</h2>
+<p class="key">From the current injury report. A listed player misses every game his team plays before his expected return date, then plays his normal share of games. Return dates are estimates and change often. The forecast picks up every change the next morning.</p>
+<div class="tablewrap"><table id="inj"><thead></thead><tbody></tbody></table></div>
+<p class="key" id="injnote"></p>
+
 <h2>Title odds</h2>
 <div class="grid2">
  <div class="aw"><div class="t">Champion</div><div id="title"></div></div>
@@ -155,18 +160,18 @@ details{margin-top:10px}summary{cursor:pointer;font-weight:600;font-size:.86rem}
 <p><b>Surprises.</b> Each simulated season gives every team a luck draw. The size of that draw depends on how many minutes are returning, roster age and rookie minutes (test S3).</p>
 <p><b>The last 15 games.</b> Teams already out of the race played about 3 points worse than their strength over their last 15 games, and teams with their seed locked about 2.4 points worse (test S4). The simulation applies both based on where each team stands when its last 15 begin.</p>
 <p><b>Seasons.</b> In each of the 1,000,000 simulations, every player gets an availability draw (some seasons he stays healthy, some he doesn't) and every team gets a luck draw. Then every remaining game is played: home court is worth about 2.2 points, and a typical game swings about 13 points either way. Ties in the standings are broken by point differential, a simplification of the league's tiebreakers. The play-in and every playoff round are played out game by game, home court included. The lottery uses the league's odds for the #1 pick.</p>
-<p><b>During the season.</b> Results move a team's strength. After 20 games a team is judged half on its preseason rating and half on how it has actually played (adjusted for opponents and home court). After 60 games, mostly on results. Box scores update minutes, team changes, games played and players listed out injured.</p>
+<p><b>During the season.</b> Results move a team's strength. After 20 games a team is judged half on its preseason rating and half on how it has actually played (adjusted for opponents and home court). After 60 games, mostly on results. Box scores update minutes, team changes and games played. The current injury report sets who is out and for how long: a listed player misses every game his team plays before his expected return date.</p>
 </div>
 
 <h2>Test record</h2>
-<p class="key">Every bar below was written down before the test was run and is in <a href="https://github.com/TheLowPostHoops/ghost-screen-analytics/blob/main/pipeline/FORECAST_PREREG.txt">FORECAST_PREREG.txt</a>. Each season was predicted using only the seasons before it. Failed tests stay on the page.</p>
+<p class="key">Every bar below was written down before the test was run and is in <a href="https://github.com/ghostscreenanalytics/ghostscreenanalytics.github.io/blob/main/pipeline/FORECAST_PREREG.txt">FORECAST_PREREG.txt</a>. Each season was predicted using only the seasons before it. Failed tests stay on the page.</p>
 <div class="tablewrap"><table class="tests" id="tests"><thead><tr><th class="ns l">Test</th><th class="ns l">Question</th><th class="ns l">Bar</th><th class="ns l">Result</th><th class="ns">Verdict</th></tr></thead><tbody></tbody></table></div>
 <div id="calib" class="chart" style="max-width:420px;margin-top:18px"></div>
 
 <h2>What it can't see</h2>
 <ul class="key">
 <li><b>Trades and signings</b> after preseason show up once a player appears in a box score for his new team.</li>
-<li><b>Injury news.</b> The model knows who sat with an injury in his team's last game, but not how long the team expects him to be out.</li>
+<li><b>Injury timelines</b> come from the public injury report's expected return dates. Those are estimates: a setback or an early return shows up the next morning, not before.</li>
 <li><b>Motivation.</b> Late-season tanking and resting are modeled as an average effect (S4), not team by team. Contract years are not modeled.</li>
 <li><b>Award voters</b> also weigh storylines. The voter model picked the actual MVP in 3 of 6 recent seasons (it needed 4 to pass its test), and the misses were close runners-up. Treat award odds as rough.</li>
 <li>These are Ghost Screen Analytics estimates built from public data, not NBA numbers.</li>
@@ -190,8 +195,12 @@ function render(){
  $('#stamp').innerHTML=`Updated <b>${fmtDate(M.updated)}</b> · <b>${M.sims.toLocaleString()}</b> simulated seasons · ${M.games_played?`<b>${M.games_played}</b> games played, ${M.games_left} to go`:'Preseason: no games played yet'}`;
  const T=F.teams;const fav=[...T].sort((a,b)=>b.title-a.title)[0];const best=[...T].sort((a,b)=>b.proj_w-a.proj_w)[0];const mvp=F.awards.mvp[0];const roy=F.awards.roy[0];
  $('#cards').innerHTML=[['Title favorite',`${CITY[fav.team]}`,`${pct(fav.title)} to win it all`],['Best record',`${CITY[best.team]}`,`${best.proj_w.toFixed(1)} wins on average`],['MVP favorite',esc(mvp.name),`${pct(mvp.p)} · ${mvp.team}`],['Rookie of the Year',esc(roy.name),`${pct(roy.p)} · ${roy.team}`]].map(([t,v,s])=>`<div class="cd"><div class="t">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
- table();take();surprise();notes();titleOdds();awards();g65();games();hist();players();tests();calib();
+ table();take();surprise();injuries();notes();titleOdds();awards();g65();games();hist();players();tests();calib();
 }
+function injuries(){const I=F.injuries||{};const R=[];for(const t in I)for(const[n,st,ret,typ,g]of I[t])if(g>=3)R.push({n,t,st,ret,typ,g});R.sort((a,b)=>b.g-a.g||a.t.localeCompare(b.t));
+ $('#inj thead').innerHTML='<tr><th class="ns l">Player</th><th class="ns l">Team</th><th class="ns l">Injury</th><th class="ns">Expected back</th><th class="ns">Games missed</th></tr>';
+ $('#inj tbody').innerHTML=R.length?R.slice(0,40).map(r=>`<tr><td class="l">${esc(r.n)}</td><td class="l">${CITY[r.t]}</td><td class="l">${esc(r.typ||r.st)}</td><td>${r.ret?fmtDate(r.ret):'–'}</td><td><b>${r.g}</b></td></tr>`).join(''):'<tr><td class="l" colspan="5">No long injuries on the report right now.</td></tr>';
+ const n=Object.values(I).reduce((a,x)=>a+x.length,0);$('#injnote').textContent=n?`Shows players expected to miss 3 or more games. ${n} players are on the report in total; shorter absences are counted too.`:'';}
 const COLS=[['team','Team','l'],['rec','Record'],['proj_w','Proj. W-L'],['ot','Our take','ns'],['rng','80% range','ns'],['top6','Top 6'],['playin','Play-in'],['playoffs','Make playoffs'],['seed1','#1 seed'],['cf','Conf. finals'],['finals','Finals'],['title','Title'],['pick1','#1 pick']];
 function table(){
  $('#st thead').innerHTML='<tr>'+COLS.map(([k,l,c])=>`<th class="${c||''}" data-k="${k}">${l}</th>`).join('')+'</tr>';
