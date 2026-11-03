@@ -1,15 +1,35 @@
-/* Ghost Screen Analytics: shared masthead and navigation (every page) */
-.mast{background:#121212;color:#fff;border-bottom:3px solid #fff;position:relative;z-index:20}
-.mast>div{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:50px;flex-wrap:wrap}
-.mast .brand{font:700 1.05rem/1 Georgia,"Times New Roman",serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-decoration:none;padding:14px 0}
+/* Ghost Screen Analytics: shared masthead, navigation and footer (every page) */
+:root{--gsa:#e4572e}
+.mast{background:#121212;color:#fff;border-bottom:3px solid var(--gsa);position:sticky;top:0;z-index:40}
+.mast>div{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:54px}
+.mast .brand{display:flex;align-items:center;gap:10px;font:700 1rem/1 Georgia,"Times New Roman",serif;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-decoration:none;padding:12px 0;white-space:nowrap}
+.mast .mk{display:inline-grid;place-items:center;width:30px;height:30px;border:2px solid #fff;border-radius:50%;font:700 .72rem/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:.02em;position:relative}
+.mast .mk::after{content:"";position:absolute;right:-5px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:var(--gsa)}
 .mast nav{display:flex;align-items:stretch;gap:2px;font:600 .72rem/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-.mast nav>a,.mast .dd>a{color:#bdbdbd;text-decoration:none;padding:17px 12px;display:block;border-bottom:3px solid transparent;margin-bottom:-3px}
+.mast nav>a,.mast .dd>a{color:#bdbdbd;text-decoration:none;padding:20px 11px 17px;display:block;border-bottom:3px solid transparent;margin-bottom:-3px;white-space:nowrap}
 .mast nav>a:hover,.mast .dd>a:hover,.mast nav a[aria-current=page],.mast .dd.on>a{color:#fff;border-bottom-color:#fff}
+.mast nav>a.sub{align-self:center;margin:0 0 0 8px;padding:9px 14px;border:0;background:var(--gsa);color:#fff;border-radius:2px}
+.mast nav>a.sub:hover{background:#fff;color:#121212}
 .mast .dd{position:relative}
 .mast .dd>a::after{content:" \25BE";font-size:.65rem}
-.mast .menu{display:none;position:absolute;right:0;top:100%;background:#121212;border:1px solid #333;border-top:3px solid #fff;min-width:250px;padding:6px 0}
+.mast .menu{display:none;position:absolute;right:0;top:100%;background:#121212;border:1px solid #333;border-top:3px solid var(--gsa);min-width:260px;padding:6px 0}
 .mast .dd:hover .menu,.mast .dd:focus-within .menu{display:block}
-.mast .menu a{display:block;padding:11px 16px;color:#e6e6e6;text-decoration:none;text-transform:none;letter-spacing:0;font-size:.86rem;font-weight:500}
+.mast .menu a{display:block;padding:10px 16px;color:#e6e6e6;text-decoration:none;text-transform:none;letter-spacing:0;font-size:.86rem;font-weight:500}
 .mast .menu a small{display:block;color:#9a9a9a;font-size:.74rem;margin-top:3px;font-weight:400}
-.mast .menu a:hover{background:#222;color:#fff}
-@media(max-width:620px){.mast .brand{font-size:.92rem;letter-spacing:.08em}.mast>div{padding:0 12px}.mast nav>a,.mast .dd>a{padding:15px 8px}.mast .x{display:none}.mast .menu{right:-60px}}
+.mast .menu a:hover,.mast .menu a[aria-current=page]{background:#222;color:#fff}
+.mast .menu .all{border-top:1px solid #333;margin-top:4px;font-weight:700}
+@media(max-width:860px){.mast>div{flex-wrap:wrap;padding:0 12px;gap:0}.mast .brand{font-size:.9rem;letter-spacing:.08em;padding:10px 0 4px}
+ .mast nav{width:100%;overflow-x:auto;scrollbar-width:none}.mast nav::-webkit-scrollbar{display:none}
+ .mast nav>a,.mast .dd>a{padding:12px 9px}.mast nav>a.sub{margin-left:auto;padding:8px 12px}
+ .mast .dd{position:static}.mast .menu{left:0;right:0;top:auto;min-width:0}}
+/* footer */
+.gsa-foot{background:#121212;color:#cfcfcf;border-top:3px solid var(--gsa);margin-top:40px;font:14px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+.gsa-foot>div{max-width:1120px;margin:0 auto;padding:30px 20px 26px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+.gsa-foot b{display:block;color:#fff;font:700 .95rem/1.2 Georgia,"Times New Roman",serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.gsa-foot h4{margin:0 0 8px;color:#fff;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.gsa-foot p{margin:0 0 8px}.gsa-foot a{color:#fff}
+.gsa-foot ul{list-style:none;margin:0;padding:0}.gsa-foot li{margin:0 0 6px}
+.gsa-foot .fine{grid-column:1/-1;border-top:1px solid #2e2e2e;padding-top:14px;font-size:.78rem;color:#8f8f8f}
+@media(max-width:760px){.gsa-foot>div{grid-template-columns:1fr}}
+/* small-screen safety for wide tables on every page */
+@media(max-width:760px){main table{display:block;overflow-x:auto;max-width:100%}main .wrap,main .tablewrap{max-width:100%}.bars .r{white-space:normal}}
