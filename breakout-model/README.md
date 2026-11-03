@@ -1,6 +1,6 @@
 # Breakout model
 
-Predicts a young NBA player's LEBRON rating next season from this season's numbers. Live page: https://thelowposthoops.github.io/three-gate-defense/breakout/
+Predicts a young NBA player's LEBRON rating next season from this season's numbers. Live page: https://thelowposthoops.github.io/ghost-screen-analytics/breakout/
 
 - `PREREG.txt` - the seven pass/fail bars, written before the first run.
 - `code/model.py` - builds the player-season pairs, runs the walk-forward test (2016-17 to 2025-26) and scores the bars.
