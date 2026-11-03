@@ -1,6 +1,6 @@
 # Aging curve model
 
-Predicts a veteran's LEBRON rating next season from this season's numbers and age, and describes how fast players decline by position. Live page: https://thelowposthoops.github.io/three-gate-defense/aging/
+Predicts a veteran's LEBRON rating next season from this season's numbers and age, and describes how fast players decline by position. Live page: https://thelowposthoops.github.io/ghost-screen-analytics/aging/
 
 - `PREREG.txt` - the seven pass/fail bars, written before the first run.
 - `code/model.py` - builds the player-season pairs (age 26 and up), runs the walk-forward test (2016-17 to 2025-26) and scores the bars.
