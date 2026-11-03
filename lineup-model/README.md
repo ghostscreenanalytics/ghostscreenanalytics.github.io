@@ -1,6 +1,6 @@
 # Lineup chemistry model
 
-Tests whether five-man NBA lineups play better or worse than the sum of their players' ratings. Live page: https://thelowposthoops.github.io/three-gate-defense/lineups/
+Tests whether five-man NBA lineups play better or worse than the sum of their players' ratings. Live page: https://thelowposthoops.github.io/ghost-screen-analytics/lineups/
 
 - `PREREG.txt` - the seven pass/fail bars, written before the model was run.
 - `data/lineups_2015_2026.csv` - five-man lineups with 100+ possessions, 2014-15 to 2025-26, from the NBA's league lineup table (advanced measures).
