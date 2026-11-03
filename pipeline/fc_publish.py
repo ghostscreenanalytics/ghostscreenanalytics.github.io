@@ -66,7 +66,7 @@ def main():
                awards={k: aw[k] for k in ("mvp", "dpoy", "roy", "smoy", "mip", "coy")}, games65=aw["games65"], award_sims=aw["sims"],
                rosters=rost, players=players, tests=tests, team_inputs=team_inputs,
                notes={k: v["text"] for k, v in json.load(open(mpath(f"fc_team_notes_{SEASON}.json"))).items()} if os.path.exists(mpath(f"fc_team_notes_{SEASON}.json")) else {},
-               out_now=sim.get("out_now", {}), backtest=dict(seasons="2015-16 to 2025-26", calib=bt["F3"]))
+               out_now=sim.get("out_now", {}), injuries=sim.get("injuries", {}), backtest=dict(seasons="2015-16 to 2025-26", calib=bt["F3"]))
     os.makedirs(PUB, exist_ok=True)
     json.dump(out, open(os.path.join(PUB, "forecast.json"), "w"), separators=(",", ":"), allow_nan=False)
     # history: one snapshot per day

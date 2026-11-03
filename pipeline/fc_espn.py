@@ -10,6 +10,7 @@ import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 SB = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates={}"
 SUM = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event={}"
+INJ = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries"
 FIX = {"GS": "GSW", "NY": "NYK", "SA": "SAS", "NO": "NOP", "UTAH": "UTA", "WSH": "WAS", "PHO": "PHX", "BRK": "BKN"}
 START, END = datetime.date(2026, 10, 20), datetime.date(2027, 4, 12)
 TEAM_IDS = {1610612737: "ATL", 1610612738: "BOS", 1610612751: "BKN", 1610612766: "CHA", 1610612741: "CHI", 1610612739: "CLE",
@@ -112,4 +113,21 @@ def box(gid, date):
                 if not nm or norm(nm) in seen or str(i.get("status", "")).lower() != "out": continue
                 rows.append(dict(gid=gid, date=date, pid=pid_for(nm, team, ath.get("id", 0) or 0), name=nm, team=team, starter=0, played=0,
                                  reason="INJURY/ILLNESS - out", min=0.0, pts=0, oreb=0, dreb=0, ast=0, stl=0, blk=0, tov=0, fga=0, fta=0, f3a=0, f3m=0, pm=0))
+    return rows
+
+
+def injuries():
+    """ESPN's league-wide injury report: one row per listed player with status (Out, Day-To-Day, Suspension),
+    expected return date (YYYY-MM-DD, ESPN's estimate) and injury type. Players are matched to NBA.com ids."""
+    rows = []
+    for t in get(INJ).get("injuries", []):
+        for x in t.get("injuries", []):
+            a = x.get("athlete", {}) or {}; nm = a.get("displayName", "")
+            team = tri((a.get("team") or {}).get("abbreviation", ""))
+            if not nm or team not in TEAMS: continue
+            href = " ".join(l.get("href", "") for l in a.get("links", []) or [])
+            m = re.search(r"/id/(\d+)", href); eid = int(m.group(1)) if m else 0
+            d = x.get("details") or {}
+            rows.append(dict(pid=pid_for(nm, team, eid), name=nm, team=team, status=x.get("status", ""),
+                             ret=d.get("returnDate"), injury=d.get("type", "")))
     return rows
