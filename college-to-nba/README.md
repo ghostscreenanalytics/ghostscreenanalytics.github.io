@@ -1,7 +1,7 @@
 # College to NBA
 
 Scores every 2026 draft pick and the 2027 draft board from college numbers and draft slot, with an 80% range for each player.
-Part of Ghost Screen Analytics. Live page: https://thelowposthoops.github.io/three-gate-defense/college/
+Part of Ghost Screen Analytics. Live page: https://thelowposthoops.github.io/ghost-screen-analytics/college/
 
 The rules and pass/fail bars are in `PREREG.txt`. They were written before any model was run.
 
