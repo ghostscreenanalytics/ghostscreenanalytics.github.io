@@ -32,13 +32,14 @@ h1{font:700 1.75rem/1.15 Georgia,"Times New Roman",serif;margin:0 0 4px}
 .rules b{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em}
 .rules ol{padding-left:20px}.rules li{margin:6px 0}
 </style>
-<link rel="stylesheet" href="/three-gate-defense/assets/site.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/icon.svg">
 </head>
 <body>
-<header class="mast"><div><a class="brand" href="/three-gate-defense/">Ghost Screen Analytics</a><nav><a href="/three-gate-defense/">Home</a><div class="dd on"><a href="/three-gate-defense/models/" aria-current="page">Models</a><div class="menu"><a href="/three-gate-defense/forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="/three-gate-defense/defense/">Three Gates<small>Rim protection explorer</small></a><a href="/three-gate-defense/durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="/three-gate-defense/college/">College to NBA<small>Draft prospects, scored</small></a><a href="/three-gate-defense/breakout/">Breakout<small>Who is about to improve</small></a><a href="/three-gate-defense/aging/">Aging Curve<small>Who is about to decline</small></a></div></div></nav></div></header>
+<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd on"><a href="../models/" aria-current="page">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/">News</a><a href="../work/">Work with us</a><a class="sub" href="https://thelowpost.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
 <h1>Models</h1>
-<p class="dek">Every Ghost Screen model is built from public data, tested against bars written down before the test was run, and published with the tests it failed. These are Ghost Screen Analytics creations, not NBA stats.</p>
+<p class="dek">Seven models, all public. Want one built for your own question? <a href="../work/">Work with us</a>. Every Ghost Screen model is built from public data, tested against bars written down before the test was run, and published with the tests it failed. These are Ghost Screen Analytics creations, not NBA stats.</p>
 <div class="models">
  <div class="m">
   <div class="k">Season · new · updated every morning</div>
@@ -84,6 +85,18 @@ h1{font:700 1.75rem/1.15 Georgia,"Times New Roman",serif;margin:0 0 4px}
   <p>How fast players decline after their mid-20s, and a 2026-27 projection with an 80% range for every player 26 or older. Six of seven pre-set bars passed; the miss is shown.</p>
   <a class="go" href="../aging/">Open the projections</a>
  </div>
+ <div class="m">
+  <div class="k">Lineups</div>
+  <h2><a href="../lineups/">Lineup Chemistry</a></h2>
+  <p>Do five players together beat the sum of their parts? Every lineup's expected and actual net rating, with an 80% range. Four of seven pre-set bars passed: the ranges are honest and familiarity helps, but the model does not beat simply adding up the parts.</p>
+  <ul>
+   <li><span>Beats the sum-of-parts line on accuracy</span><span class="fail">Fail</span></li>
+   <li><span>80% ranges cover 75-85% of lineups</span><span class="pass">Pass</span></li>
+   <li><span>Real gain beats 95% of shuffles</span><span class="pass">Pass</span></li>
+   <li><span>Returning lineups beat their parts by 0.5+</span><span class="pass">Pass</span></li>
+  </ul>
+  <a class="go" href="../lineups/">Open the lineups</a>
+ </div>
 </div>
 <div class="rules">
  <b>How every model here works</b>
@@ -106,5 +119,6 @@ fetch('../data/forecast.json?'+Date.now()).then(r=>r.json()).then(F=>{
  document.getElementById('fc').innerHTML=F.tests.filter(t=>t.pass_!==null).map(t=>`<li><span>${t.q}</span>${v(t.pass_)}</li>`).join('');
 }).catch(()=>{});
 </script>
+<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://thelowpost.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://thelowpost.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
 </body>
 </html>
