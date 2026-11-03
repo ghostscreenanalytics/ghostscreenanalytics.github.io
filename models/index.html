@@ -36,10 +36,10 @@ h1{font:700 1.75rem/1.15 Georgia,"Times New Roman",serif;margin:0 0 4px}
 <link rel="icon" href="../assets/icon.svg">
 </head>
 <body>
-<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd on"><a href="../models/" aria-current="page">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a href="../low-post-franchise-index/">Franchise Index<small>Who built it, who won it</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/">News</a><a href="../work/">Work with us</a><a class="sub" href="https://thelowpost.substack.com/subscribe">Subscribe</a></nav></div></header>
+<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd on"><a href="../models/" aria-current="page">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a href="../low-post-franchise-index/">Franchise Index<small>Who built it, who won it</small></a><a href="../joy/">Joy Rankings<small>The most fun games, rebuilt your way</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/">News</a><a href="../work/">Work with us</a><a class="sub" href="https://ghostscreenanalytics.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
 <h1>Models</h1>
-<p class="dek">Eight models, all public. Want one built for your own question? <a href="../work/">Work with us</a>. Every Ghost Screen model is built from public data, tested against bars written down before the test was run, and published with the tests it failed. These are Ghost Screen Analytics creations, not NBA stats.</p>
+<p class="dek">Nine models, all public. Want one built for your own question? <a href="../work/">Work with us</a>. Every Ghost Screen model is built from public data, tested against bars written down before the test was run, and published with the tests it failed. These are Ghost Screen Analytics creations, not NBA stats.</p>
 <div class="models">
  <div class="m">
   <div class="k">Season · new · updated every morning</div>
@@ -103,6 +103,12 @@ h1{font:700 1.75rem/1.15 Georgia,"Times New Roman",serif;margin:0 0 4px}
   <p>Every NBA franchise since 1991, ranked on who built it and who won it. Team reports, season-by-season rosters and moves, and sliders to rebuild the ranking your own way, plus a backtest that predicts each team's point differential from 2004 to 2026.</p>
   <a class="go" href="../low-post-franchise-index/">Open the index</a>
  </div>
+ <div class="m">
+  <div class="k">Fun</div>
+  <h2><a href="../joy/">Joy Rankings</a></h2>
+  <p>The most fun NBA games since 1996-97: Game Score plus a point for every three, steal, block and dunk. Don't like the formula? Move the sliders and rebuild the top 100 yourself.</p>
+  <a class="go" href="../joy/">Open the rankings</a>
+ </div>
 </div>
 <div class="rules">
  <b>How every model here works</b>
@@ -125,6 +131,6 @@ fetch('../data/forecast.json?'+Date.now()).then(r=>r.json()).then(F=>{
  document.getElementById('fc').innerHTML=F.tests.filter(t=>t.pass_!==null).map(t=>`<li><span>${t.q}</span>${v(t.pass_)}</li>`).join('');
 }).catch(()=>{});
 </script>
-<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://thelowpost.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://thelowpost.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
+<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://ghostscreenanalytics.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://ghostscreenanalytics.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
 </body>
 </html>
