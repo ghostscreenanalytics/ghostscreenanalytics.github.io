@@ -3,53 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ghost Screen Analytics</title>
-<meta name="description" content="Data-driven basketball analytics. Models built from public data, with the tests written before the results.">
+<title>Ghost Screen Analytics: basketball models, news and analysis</title>
+<meta name="description" content="Ghost Screen Analytics builds NBA models from public data, publishes basketball news and analysis twice a week, and takes on custom analytics work.">
+<meta property="og:title" content="Ghost Screen Analytics">
+<meta property="og:description" content="Basketball models, news and analysis. Every model published with the tests it passed and failed.">
 <style>
 :root{--bg:#ffffff;--ink:#121212;--mute:#6b6b6b;--line:#e3e3e3;--soft:#f5f5f4;--rule:#121212}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121212;--ink:#f2f2f2;--mute:#a0a0a0;--line:#2e2e2e;--soft:#1c1c1c;--rule:#f2f2f2}}
-:root[data-theme="dark"]{--bg:#121212;--ink:#f2f2f2;--mute:#a0a0a0;--line:#2e2e2e;--soft:#1c1c1c;--rule:#f2f2f2}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
-main{max-width:1120px;margin:0 auto;padding:34px 20px 64px}
-.hero{max-width:44em;margin-bottom:38px}
-.hero h1{font:700 2.3rem/1.1 Georgia,"Times New Roman",serif;margin:0 0 12px;letter-spacing:-.01em}
-.hero p{font-size:1.08rem;margin:0;color:var(--mute)}
-@media(max-width:600px){.hero h1{font-size:1.75rem}}
-h2{font:700 .8rem/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;text-transform:uppercase;letter-spacing:.14em;margin:0 0 16px;padding-top:12px;border-top:3px solid var(--rule)}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-bottom:44px}
+main{max-width:1120px;margin:0 auto;padding:0 20px 24px}
+a{color:inherit}
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:end;padding:46px 0 38px;border-bottom:1px solid var(--line);margin-bottom:34px}
+.kick{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--gsa);margin-bottom:12px}
+.hero h1{font:700 2.75rem/1.06 Georgia,"Times New Roman",serif;margin:0 0 16px;letter-spacing:-.015em}
+.hero p{font-size:1.08rem;margin:0 0 22px;color:var(--mute);max-width:36em}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:12px 18px;text-decoration:none;border:1px solid var(--ink);border-radius:2px}
+.btn.p{background:var(--gsa);border-color:var(--gsa);color:#fff}.btn.p:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.btn:not(.p):hover{background:var(--ink);color:var(--bg)}
+.now{border:1px solid var(--line);border-top:3px solid var(--gsa);padding:16px 18px;background:var(--soft)}
+.now h3{margin:0 0 2px;font-size:.7rem;text-transform:uppercase;letter-spacing:.14em}
+.now .sm{font-size:.78rem;color:var(--mute);margin:0 0 10px}
+.now ol{list-style:none;margin:0;padding:0}
+.now li{display:grid;grid-template-columns:1fr 88px 44px;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:.92rem}
+.now li:first-child{border-top:0}
+.now .bar{height:8px;background:var(--line);position:relative}.now .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--gsa)}
+.now .pc{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.now a.more{display:inline-block;margin-top:10px;font-size:.84rem;font-weight:600}
+@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr);gap:26px;padding-top:30px}.hero h1{font-size:2rem}}
+h2{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:700 .8rem/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;text-transform:uppercase;letter-spacing:.14em;margin:0 0 16px;padding-top:12px;border-top:3px solid var(--rule)}
+h2 a{font-size:.72rem;letter-spacing:.1em;text-decoration:none;color:var(--mute)}h2 a:hover{color:var(--ink)}
+.news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-bottom:44px}
+.post{text-decoration:none;color:var(--ink);display:flex;flex-direction:column}
+.post .img{aspect-ratio:16/9;background:var(--soft) center/cover no-repeat;border:1px solid var(--line);margin-bottom:12px;display:grid;place-items:center;color:var(--mute);font:700 .7rem/1 -apple-system,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.post .d{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
+.post h3{font:700 1.25rem/1.2 Georgia,"Times New Roman",serif;margin:4px 0 6px}
+.post p{margin:0;font-size:.92rem;color:var(--mute)}
+.post:hover h3{text-decoration:underline}
+.sched{font-size:.86rem;color:var(--mute);margin:-28px 0 44px}
+@media(max-width:860px){.news{grid-template-columns:minmax(0,1fr)}.post{display:grid;grid-template-columns:120px minmax(0,1fr);gap:0 14px}.post .img{grid-row:1/4;margin:0;aspect-ratio:1}}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:44px}
 @media(max-width:980px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}}
-.c{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-top:3px solid var(--rule);padding:16px 18px}
-.c:hover{background:var(--soft)}
+@media(max-width:620px){.cards{grid-template-columns:minmax(0,1fr)}}
+.c{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-top:3px solid var(--rule);padding:16px 18px}
+.c:hover{background:var(--soft)}.c:hover .f{color:var(--gsa)}
 .c .k{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
-.c h3{font:700 1.4rem/1.15 Georgia,"Times New Roman",serif;margin:6px 0 8px}
-.c p{margin:0;font-size:.95rem}
-.c .f{margin-top:12px;font-size:.86rem;border-top:1px solid var(--line);padding-top:10px}
-.find{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:44px}
+.c h3{font:700 1.3rem/1.15 Georgia,"Times New Roman",serif;margin:6px 0 8px}
+.c p{margin:0 0 12px;font-size:.93rem}
+.c .f{margin-top:auto;font-size:.84rem;font-weight:600;border-top:1px solid var(--line);padding-top:10px}
+.do{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-bottom:44px}
+.do div{font-size:.94rem}.do b{display:block;font:700 1.25rem/1.2 Georgia,"Times New Roman",serif;margin-bottom:6px}
+.do a{font-weight:600}
+@media(max-width:860px){.do{grid-template-columns:minmax(0,1fr)}}
+.find{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:20px}
 @media(max-width:860px){.find{grid-template-columns:minmax(0,1fr)}}
-.find div{font-size:.92rem}.find b{display:block;font:700 1.5rem/1.1 Georgia,"Times New Roman",serif;margin-bottom:4px;font-variant-numeric:tabular-nums}
-.about{max-width:46em;font-size:.95rem}
-.about a{color:var(--ink)}
+.find div{font-size:.92rem}.find b{display:block;font:700 1.6rem/1.1 Georgia,"Times New Roman",serif;margin-bottom:4px;font-variant-numeric:tabular-nums}
 </style>
-<link rel="stylesheet" href="/three-gate-defense/assets/site.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="assets/icon.svg">
 </head>
 <body>
-<header class="mast"><div><a class="brand" href="/three-gate-defense/">Ghost Screen Analytics</a><nav><a href="/three-gate-defense/" aria-current="page">Home</a><div class="dd"><a href="/three-gate-defense/models/">Models</a><div class="menu"><a href="/three-gate-defense/forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="/three-gate-defense/defense/">Three Gates<small>Rim protection explorer</small></a><a href="/three-gate-defense/durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="/three-gate-defense/college/">College to NBA<small>Draft prospects, scored</small></a><a href="/three-gate-defense/breakout/">Breakout<small>Who is about to improve</small></a><a href="/three-gate-defense/aging/">Aging Curve<small>Who is about to decline</small></a></div></div></nav></div></header>
+<header class="mast"><div><a class="brand" href="./"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="./" aria-current="page">Home</a><div class="dd"><a href="models/">Models</a><div class="menu"><a href="forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="defense/">Three Gates<small>Rim protection explorer</small></a><a href="durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="college/">College to NBA<small>Draft prospects, scored</small></a><a href="breakout/">Breakout<small>Who is about to improve</small></a><a href="aging/">Aging Curve<small>Who is about to decline</small></a><a href="lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a class="all" href="models/">All models and their tests</a></div></div><a href="news/">News</a><a href="work/">Work with us</a><a class="sub" href="https://thelowpost.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
-<div class="hero">
- <h1>Basketball questions, answered with tests written before the results.</h1>
- <p>Ghost Screen Analytics builds its own models from public NBA data. Every one comes with the bar it had to clear, what it passed, and what it failed.</p>
+<section class="hero">
+ <div>
+  <div class="kick">Models · News · Custom analysis</div>
+  <h1>Basketball models and news, with the tests shown.</h1>
+  <p>Ghost Screen Analytics builds its own NBA models from public data, writes about what they find twice a week, and takes on custom analytics work. Every model is published with the bar it had to clear and the tests it failed.</p>
+  <div class="cta"><a class="btn p" href="https://thelowpost.substack.com/subscribe">Get the newsletter</a><a class="btn" href="models/">Explore the models</a><a class="btn" href="work/">Work with us</a></div>
+ </div>
+ <aside class="now" id="now">
+  <h3>Title odds right now</h3>
+  <p class="sm" id="nowsub">From the Season Forecast, 1,000,000 simulated seasons</p>
+  <ol id="odds"><li><span>Loading…</span></li></ol>
+  <a class="more" href="forecast/">Full standings, playoff and award odds →</a>
+ </aside>
+</section>
+
+<h2>Latest from the newsletter <a href="news/">All posts →</a></h2>
+<div class="news" id="news">
+ <a class="post" href="https://thelowpost.substack.com"><div class="img">Ghost Screen</div><div class="d">Substack</div><h3>Read Ghost Screen Analytics on Substack</h3><p>New analysis every Friday and Sunday.</p></a>
+</div>
+<p class="sched">New posts every Friday and Sunday. Free on Substack.</p>
+
+<h2>Models <a href="models/">Every model and its tests →</a></h2>
+<div class="cards">
+ <a class="c" href="forecast/"><div class="k">Season · updated daily</div><h3>2026-27 Season Forecast</h3><p>The season played out 1,000,000 times every morning: every team's record, playoff and title odds, the award races and every game's win probability.</p><div class="f">Open the forecast →</div></a>
+ <a class="c" href="defense/"><div class="k">Defense</div><h3>Three Gates: rim protection</h3><p>Blocks show one of three ways to protect the rim. This splits it into Redirect, Deter and Contest and grades every defender on each.</p><div class="f">Open the explorer →</div></a>
+ <a class="c" href="durability/"><div class="k">Health</div><h3>Load &amp; Durability</h3><p>Who is likely to miss games to injury, a body map for every player from the NBA's official injury reports, and what kind of load raises the risk.</p><div class="f">Open the model →</div></a>
+ <a class="c" href="college/"><div class="k">Draft</div><h3>College to NBA</h3><p>Every 2026 draft pick and the 2027 draft board, scored from college numbers and draft slot, each with an 80% range.</p><div class="f">Open the projections →</div></a>
+ <a class="c" href="breakout/"><div class="k">Players</div><h3>Breakout Model</h3><p>Every NBA player 25 or younger, projected for 2026-27 with an 80% range: who is about to get better.</p><div class="f">Open the projections →</div></a>
+ <a class="c" href="aging/"><div class="k">Players</div><h3>Aging Curve</h3><p>How NBA players age by position, and a 2026-27 projection for every player 26 or older: who is about to decline.</p><div class="f">Open the projections →</div></a>
+ <a class="c" href="lineups/"><div class="k">Lineups</div><h3>Lineup Chemistry</h3><p>Do five players together beat the sum of their parts? Every lineup's expected and actual net rating, with an 80% range.</p><div class="f">Open the lineups →</div></a>
 </div>
 
-<h2>Models</h2>
-<div class="cards">
- <a class="c" href="forecast/"><div class="k">Season · new · updated daily</div><h3>2026-27 Season Forecast</h3><p>The season played out 1,000,000 times every morning: every team's record, playoff and title odds, the award races and every game's win probability.</p><div class="f" id="f0">Open the forecast →</div></a>
- <a class="c" href="defense/"><div class="k">Defense</div><h3>Three Gates: rim protection</h3><p>Blocks show one of three ways to protect the rim. This splits it into Redirect, Deter and Contest and grades every defender on each.</p><div class="f" id="f1">Open the explorer →</div></a>
- <a class="c" href="durability/"><div class="k">Health</div><h3>Load &amp; Durability</h3><p>Who is likely to miss games to injury next season, a body map for every player from the NBA's official injury reports, and what kind of load raises the risk.</p><div class="f" id="f2">Open the model →</div></a>
- <a class="c" href="college/"><div class="k">Draft · new</div><h3>College to NBA</h3><p>Every 2026 draft pick and the 2027 draft board, scored from college numbers and draft slot, with an 80% range and the tests the model passed and failed.</p><div class="f">Open the projections →</div></a>
- <a class="c" href="breakout/"><div class="k">Players · new</div><h3>Breakout Model</h3><p>Every NBA player 25 or younger, projected for 2026-27 with an 80% range, and the tests the model passed and failed.</p><div class="f">Open the projections →</div></a>
- <a class="c" href="aging/"><div class="k">Players · new</div><h3>Aging Curve</h3><p>How NBA players age by position, and a 2026-27 projection with an 80% range for every player 26 or older, with the tests the model passed and failed.</p><div class="f">Open the projections →</div></a>
+<h2>What we do</h2>
+<div class="do">
+ <div><b>Models</b>Seven public models, from rim protection to injury risk to a daily season forecast. Each comes with its rules, its code and every test result, passed or failed. <a href="models/">See the models</a></div>
+ <div><b>News and analysis</b>A newsletter on Substack every Friday and Sunday: what the numbers say about the stories people are arguing about, explained in plain words. <a href="news/">Read the latest</a></div>
+ <div><b>Custom work</b>Player and team evaluation, draft and contract questions, and custom models and dashboards for teams, agencies, media and fans. <a href="work/">Work with us</a></div>
 </div>
 
 <h2>Findings</h2>
@@ -58,17 +111,25 @@ h2{font:700 .8rem/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sa
  <div><b id="n2">–</b>one- and two-game rest breaks per rotation player last season, up from <span id="n2b">–</span>.</div>
  <div><b id="n3">–</b>of next injuries hit the same body area as the last one, more than twice what chance would give.</div>
 </div>
-
-<h2>About</h2>
-<div class="about">
- <p>Data-driven basketball analytics. Rim protection is three skills, not one, and missed games are mostly not something a minutes count can predict. Follow along on X at <a href="https://x.com/LowPostHoops">@LowPostHoops</a>.</p>
-</div>
 </main>
 <script>
+const $=id=>document.getElementById(id), esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NAMES={ATL:'Atlanta',BOS:'Boston',BKN:'Brooklyn',CHA:'Charlotte',CHI:'Chicago',CLE:'Cleveland',DAL:'Dallas',DEN:'Denver',DET:'Detroit',GSW:'Golden State',HOU:'Houston',IND:'Indiana',LAC:'LA Clippers',LAL:'LA Lakers',MEM:'Memphis',MIA:'Miami',MIL:'Milwaukee',MIN:'Minnesota',NOP:'New Orleans',NYK:'New York',OKC:'Oklahoma City',ORL:'Orlando',PHI:'Philadelphia',PHX:'Phoenix',POR:'Portland',SAC:'Sacramento',SAS:'San Antonio',TOR:'Toronto',UTA:'Utah',WAS:'Washington'};
+fetch('data/forecast.json?'+Date.now()).then(r=>r.json()).then(F=>{
+ const t=[...F.teams].sort((a,b)=>b.title-a.title).slice(0,5), mx=t[0].title;
+ $('odds').innerHTML=t.map(x=>`<li><span>${NAMES[x.team]||x.team}${x.w+x.l?` <small style="color:var(--mute)">${x.w}-${x.l}</small>`:''}</span><span class="bar"><i style="width:${(x.title/mx*100).toFixed(0)}%"></i></span><span class="pc">${(x.title*100).toFixed(0)}%</span></li>`).join('');
+ const d=new Date(F.meta.updated+'T12:00:00');
+ $('nowsub').textContent=`Updated ${d.toLocaleDateString('en-US',{month:'short',day:'numeric'})} · 1,000,000 simulated seasons`;
+}).catch(()=>{$('now').style.display='none'});
+fetch('data/news.json?'+Date.now()).then(r=>r.json()).then(N=>{
+ if(!N.posts||!N.posts.length) return;
+ $('news').innerHTML=N.posts.slice(0,3).map(p=>`<a class="post" href="${esc(p.url)}"><div class="img"${p.image?` style="background-image:url('${esc(p.image)}')"`:''}>${p.image?'':'Ghost Screen'}</div><div class="d">${new Date(p.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div><h3>${esc(p.title)}</h3><p>${esc(p.subtitle)}</p></a>`).join('');
+}).catch(()=>{});
 fetch('data/load_meta.json?'+Date.now()).then(r=>r.json()).then(M=>{const t=M.trend,a=t[0],b=t[t.length-1];
- document.getElementById('n1').textContent='+'+Math.round((b.pace/a.pace-1)*100)+'%';
- document.getElementById('n2').textContent=b.rest.toFixed(1);document.getElementById('n2b').textContent=a.rest.toFixed(1)+' in '+a.season;
- document.getElementById('n3').textContent=Math.round(M.v2.V3.same_rate*100)+'%';}).catch(()=>{});
+ $('n1').textContent='+'+Math.round((b.pace/a.pace-1)*100)+'%';
+ $('n2').textContent=b.rest.toFixed(1);$('n2b').textContent=a.rest.toFixed(1)+' in '+a.season;
+ $('n3').textContent=Math.round(M.v2.V3.same_rate*100)+'%';}).catch(()=>{});
 </script>
+<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://thelowpost.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="news/">News and analysis</a></li><li><a href="models/">Models</a></li><li><a href="https://thelowpost.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
 </body>
 </html>
