@@ -50,10 +50,11 @@ td.p{font-weight:700}
 dt{font-weight:700;margin-top:10px;font-size:.92rem}dd{margin:2px 0 0;font-size:.92rem}
 a{color:var(--ink)}
 </style>
-<link rel="stylesheet" href="/three-gate-defense/assets/site.css">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/icon.svg">
 </head>
 <body>
-<header class="mast"><div><a class="brand" href="/three-gate-defense/">Ghost Screen Analytics</a><nav><a href="/three-gate-defense/">Home</a><div class="dd on"><a href="/three-gate-defense/models/">Models</a><div class="menu"><a href="/three-gate-defense/forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="/three-gate-defense/defense/">Three Gates<small>Rim protection explorer</small></a><a href="/three-gate-defense/durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="/three-gate-defense/college/" aria-current="page">College to NBA<small>Draft prospects, scored</small></a><a href="/three-gate-defense/breakout/">Breakout<small>Who is about to improve</small></a><a href="/three-gate-defense/aging/">Aging Curve<small>Who is about to decline</small></a></div></div></nav></div></header>
+<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd on"><a href="../models/">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/" aria-current="page">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/">News</a><a href="../work/">Work with us</a><a class="sub" href="https://thelowpost.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
 <h1>College to NBA</h1>
 <p class="dek">Every 2026 draft pick and the 2027 draft board, scored from college numbers and draft slot, each with an 80% range. A Ghost Screen Analytics model, not an NBA stat. The tests were written before the model was run.</p>
@@ -89,7 +90,7 @@ a{color:var(--ink)}
 <h2>What it is built on</h2>
 <div class="txt">
  <p>Sample: <span id="nall"></span> players drafted from 2008 to 2022 with a Division I season (international and non-college picks are left out), their final college season from Barttorvik, and their NBA rating over seasons 2 to 4. The test predicted each class from 2016 to 2022 using only earlier classes whose three NBA seasons had finished, so nothing in a test was seen in training.</p>
- <p>The rules, the code, the data and every result, including the first run, are in the <a href="https://github.com/TheLowPostHoops/three-gate-defense/tree/main/college-to-nba">college-to-nba folder on GitHub</a>. A passed bar is not proof the model will keep working: it is seven classes and a few hundred players.</p>
+ <p>The rules, the code, the data and every result, including the first run, are in the <a href="https://github.com/TheLowPostHoops/ghost-screen-analytics/tree/main/college-to-nba">college-to-nba folder on GitHub</a>. A passed bar is not proof the model will keep working: it is seven classes and a few hundred players.</p>
 </div>
 </main>
 <script>
@@ -120,5 +121,6 @@ $('t26').onclick=()=>{mode='r26';sortK=null;sortDir=1;$('t26').setAttribute('ari
 $('t27').onclick=()=>{mode='r27';sortK=null;sortDir=1;$('t27').setAttribute('aria-pressed',false);$('t27').setAttribute('aria-pressed',true);$('t26').setAttribute('aria-pressed',false);if(D)render()};
 $('q').oninput=()=>D&&render();
 </script>
+<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://thelowpost.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://thelowpost.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
 </body>
 </html>
