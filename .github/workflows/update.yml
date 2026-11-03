@@ -40,6 +40,10 @@ jobs:
           key: seasons-${{ github.run_id }}
           restore-keys: seasons-
 
+      - name: Refresh the newsletter list
+        continue-on-error: true          # keeps the last list if Substack can't be reached
+        run: python pipeline/news_update.py
+
       - name: Run the season forecast (1,000,000 seasons)
         continue-on-error: true          # if it fails, the forecast page keeps yesterday's numbers
         run: bash pipeline/forecast_update.sh
