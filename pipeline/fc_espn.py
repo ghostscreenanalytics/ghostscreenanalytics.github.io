@@ -17,6 +17,7 @@ TEAM_IDS = {1610612737: "ATL", 1610612738: "BOS", 1610612751: "BKN", 1610612766:
             1610612746: "LAC", 1610612747: "LAL", 1610612763: "MEM", 1610612748: "MIA", 1610612749: "MIL", 1610612750: "MIN",
             1610612740: "NOP", 1610612752: "NYK", 1610612760: "OKC", 1610612753: "ORL", 1610612755: "PHI", 1610612756: "PHX",
             1610612757: "POR", 1610612758: "SAC", 1610612759: "SAS", 1610612761: "TOR", 1610612762: "UTA", 1610612764: "WAS"}
+TEAMS = set(TEAM_IDS.values())
 
 
 def get(url):
@@ -33,6 +34,7 @@ def schedule():
         for e in get(SB.format(d.strftime("%Y%m%d"))).get("events", []):
             if e.get("season", {}).get("type") != 2: continue
             c = {x["homeAway"]: x for x in e["competitions"][0]["competitors"]}
+            if tri(c["home"]["team"]["abbreviation"]) not in TEAMS or tri(c["away"]["team"]["abbreviation"]) not in TEAMS: continue   # TBD, All-Star
             st = e["status"]["type"]["state"]
             dt = pd.Timestamp(e["date"]).tz_localize(None) - pd.Timedelta(hours=5)
             rows.append(dict(gid="E" + e["id"], date=dt.normalize(), home=tri(c["home"]["team"]["abbreviation"]), away=tri(c["away"]["team"]["abbreviation"]),
