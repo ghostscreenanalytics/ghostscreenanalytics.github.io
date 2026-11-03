@@ -30,6 +30,13 @@ def update(schedule):
     todo = schedule[(schedule.status == 3) & (schedule.gid.astype(str) != "") & ~schedule.gid.astype(str).isin(have)]
     rows = []
     for x in todo.itertuples():
+        if str(x.gid).startswith("E"):     # ESPN game (backup source)
+            try:
+                import fc_espn
+                rows += fc_espn.box(str(x.gid), str(x.date.date()))
+            except Exception as e:
+                print("ESPN box score", x.gid, "failed:", str(e)[:80])
+            time.sleep(0.2); continue
         try:
             j = json.loads(urllib.request.urlopen(urllib.request.Request(BOX_URL.format(x.gid), headers={"User-Agent": "Mozilla/5.0"}), timeout=30).read())["game"]
         except Exception as e:
