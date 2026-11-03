@@ -258,8 +258,13 @@ def main(nsims=1_000_000, chunk=20_000, seed=None):
     np.savez_compressed(os.path.join(OUT, "fc_sim_players.npz"), avail=np.concatenate(player_out["avail"]), wins=np.concatenate(player_out["wins"]), pids=D.index.values,
                         team_rem=82 - n_g, team_played=n_g, team_of=D.team.map(TI).values)
     D.to_csv(os.path.join(OUT, "fc_players_now.csv"))
+    injuries = live_info.pop("injuries", {})
     out["meta"]["live"] = live_info
-    out["out_now"] = {t: [n for n, a_, tt in zip(D.name, D.avail, D.team) if tt == t and a_ < 0.2] for t in TEAMS}
+    out["injuries"] = injuries
+    if any(injuries.values()):   # out for the next game per the injury report
+        out["out_now"] = {t: [r[0] for r in injuries.get(t, []) if r[4] > 0 and r[1] != "Day-To-Day"] for t in TEAMS}
+    else:
+        out["out_now"] = {t: [n for n, a_, tt in zip(D.name, D.avail, D.team) if tt == t and a_ < 0.2] for t in TEAMS}
     print("done", n, "sims in", meta["seconds"], "s", flush=True)
     return out
 
@@ -279,6 +284,24 @@ def apply_live(D, S):
     P = fc_live.so_far(B, spm)
     tg = B.groupby("team").gid.nunique()
     out_now = set(B[B.gid.isin(B.sort_values("date").groupby("team").gid.last().values) & (B.played == 0) & B.reason.str.contains("INJURY", na=False)].pid)
+    # current injury report with expected return dates (ESPN): a listed player misses every remaining game his team
+    # plays before the return date. Without the report, players out for their team's last game miss about 8 more.
+    miss, inj_rows = {}, []
+    try:
+        import fc_espn
+        inj = fc_espn.injuries()
+        print("injury report:", len(inj), "players listed", flush=True)
+    except Exception as e:
+        inj = []; print("injury report unavailable:", str(e)[:120], flush=True)
+    if inj:
+        left = S[S.status != 3]
+        for r in inj:
+            tl = left[(left.home == r["team"]) | (left.away == r["team"])]
+            m = int((tl.date < pd.Timestamp(r["ret"])).sum()) if r.get("ret") else 8
+            if r["pid"] in miss: m = max(m, miss[r["pid"]])
+            miss[r["pid"]] = m
+            inj_rows.append(dict(r, games=m))
+        out_now = {p for p, m in miss.items() if m > 0}
     D = D.copy(); D["avail_pre"] = D.avail
     new = [p for p in P.index if p not in D.index]
     if new:
@@ -298,10 +321,13 @@ def apply_live(D, S):
         if not ng: continue
         gp = P.gp.get(p, 0)
         a = (gp + 20 * D.loc[p, "avail"]) / (ng + 20)
-        if p in out_now: a *= max(0.0, (82 - ng - 8) / max(82 - ng, 1))
+        if miss:
+            if p in miss: a *= max(0.0, (82 - ng - min(miss[p], 82 - ng)) / max(82 - ng, 1))
+        elif p in out_now: a *= max(0.0, (82 - ng - 8) / max(82 - ng, 1))
         D.loc[p, "avail"] = float(np.clip(a, 0.02, 0.97))
     P.to_csv(os.path.join(OUT, "fc_live_players.csv"))
-    info = dict(box_games=int(B.gid.nunique()), out_now=len(out_now))
+    info = dict(box_games=int(B.gid.nunique()), out_now=len(out_now), injury_source="ESPN injury report" if miss else "box scores",
+                injuries={t: sorted([[r["name"], r["status"], r["ret"], r["injury"], r["games"]] for r in inj_rows if r["team"] == t], key=lambda x: -x[4]) for t in TEAMS})
     return D, info
 
 

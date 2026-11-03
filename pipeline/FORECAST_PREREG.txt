@@ -113,3 +113,13 @@ S5 FAIL  star premium. Error on 2015-16..2019-20 by B: 0 -> 2.224, 0.25 -> 2.262
 Minutes, adopted after testing (published model before this used last season's minutes, no lean):
    two-season minutes weighted by games + 5% lean per rating point: F1 error 2.654 vs 2.676, log loss 0.6370 vs 0.6375.
    Tried and dropped: concentrating minutes on the top of the rotation (exponent 1.5: 2.676, 2: 2.711, 3: 2.771).
+
+== 2026-11-02: current injuries (data change, not a re-tuned parameter) ==
+Before: a player listed out with an injury for his team's last game was assumed to miss about 8 more games, whatever
+the injury. That left long absences (e.g. OKC's Jalen Williams and Cason Wallace, expected back early March, and Chet
+Holmgren, early January) counted as 8 games.
+Now: the daily run reads ESPN's public NBA injury report (pipeline/fc_espn.injuries). Each listed player (Out,
+Day-To-Day or Suspension) misses every remaining game his team plays before his expected return date; his availability
+for the rest of the season is scaled by (remaining games - games missed) / remaining games. If the report cannot be
+read, the old 8-game rule is used. No bar was set for this change and none was re-run; it changes inputs, not the
+model's fitted parts. The forecast page lists every player expected to miss 3+ games.
