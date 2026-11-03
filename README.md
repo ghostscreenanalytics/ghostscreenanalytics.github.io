@@ -1,8 +1,10 @@
 # Ghost Screen Analytics
 
-Live site: https://thelowposthoops.github.io/three-gate-defense/
+Live site: https://thelowposthoops.github.io/ghost-screen-analytics/
 
-- `index.html` home page, `models/` list of models, `assets/site.css` shared masthead and navigation
+Basketball models, news and analysis. Home, News (`news/`, reads `data/news.json`, refreshed daily from Substack by `pipeline/news_update.py`) and Work with us (`work/`). Links between pages are relative so the site works at any address.
+
+- `index.html` home page, `models/` list of models, `news/`, `work/`, `assets/site.css` shared masthead, navigation and footer
 - `defense/` Three Gates rim protection explorer (moved here from the root)
 - `durability/` Load & Durability model
 
@@ -33,3 +35,9 @@ A GitHub Action (`.github/workflows/update.yml`) refits the model every Monday a
 source dataset has new games. `python pipeline/update.py --boot 20` runs a quick local test.
 
 Data: play-by-play and shot data from the open `shufinskiy/nba_data` repository.
+
+## Season Forecast live results
+
+`pipeline/fc_sim.py` reads the schedule and final scores from the NBA's CDN when it can. cdn.nba.com refuses GitHub's
+servers, so the daily run falls back to ESPN's public scoreboard and box scores (`pipeline/fc_espn.py`), matching players
+to NBA.com ids by name. Only if both fail does it use `pipeline/inputs/schedule_2026.txt` with no results.
