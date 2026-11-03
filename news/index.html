@@ -42,13 +42,13 @@ h2{font:700 .8rem/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sa
 <link rel="icon" href="../assets/icon.svg">
 </head>
 <body>
-<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd"><a href="../models/">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a href="../low-post-franchise-index/">Franchise Index<small>Who built it, who won it</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/" aria-current="page">News</a><a href="../work/">Work with us</a><a class="sub" href="https://thelowpost.substack.com/subscribe">Subscribe</a></nav></div></header>
+<header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd"><a href="../models/">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a href="../low-post-franchise-index/">Franchise Index<small>Who built it, who won it</small></a><a href="../joy/">Joy Rankings<small>The most fun games, rebuilt your way</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/" aria-current="page">News</a><a href="../work/">Work with us</a><a class="sub" href="https://ghostscreenanalytics.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
 <div class="top">
  <div>
   <h1>News and analysis</h1>
   <p class="dek">What the numbers say about the stories people are arguing about. Each post explains its terms in plain words and shows the data and the method behind it.</p>
-  <a class="btn" href="https://thelowpost.substack.com/subscribe">Subscribe free on Substack</a>
+  <a class="btn" href="https://ghostscreenanalytics.substack.com/subscribe">Subscribe free on Substack</a>
  </div>
  <div class="box">
   <h3>When to read</h3>
@@ -62,7 +62,7 @@ h2{font:700 .8rem/1.2 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sa
 
 <h2>All posts</h2>
 <div class="list" id="list">
- <a class="post" href="https://thelowpost.substack.com/archive"><div class="img">Archive</div><div><div class="d">Substack</div><h3>Read every post on Substack</h3><p>The full archive of Ghost Screen Analytics.</p></div></a>
+ <a class="post" href="https://ghostscreenanalytics.substack.com/archive"><div class="img">Archive</div><div><div class="d">Substack</div><h3>Read every post on Substack</h3><p>The full archive of Ghost Screen Analytics.</p></div></a>
 </div>
 
 <div class="also">
@@ -77,6 +77,6 @@ fetch('../data/news.json?'+Date.now()).then(r=>r.json()).then(N=>{
  document.getElementById('list').innerHTML=N.posts.map(p=>`<a class="post" href="${esc(p.url)}"><div class="img"${p.image?` style="background-image:url('${esc(p.image)}')"`:''}>${p.image?'':'Ghost Screen'}</div><div><div class="d">${new Date(p.date).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}</div><h3>${esc(p.title)}</h3><p>${esc(p.subtitle)}</p></div></a>`).join('');
 }).catch(()=>{});
 </script>
-<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://thelowpost.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://thelowpost.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
+<footer class="gsa-foot"><div><div><b>Ghost Screen Analytics</b><p>Basketball models, analysis and news. Every model is built from public data and published with the tests it passed and failed.</p><p><a href="https://ghostscreenanalytics.substack.com/subscribe">Get the newsletter →</a></p></div><div><h4>Read and explore</h4><ul><li><a href="../news/">News and analysis</a></li><li><a href="../models/">Models</a></li><li><a href="https://ghostscreenanalytics.substack.com">Substack</a></li><li><a href="https://x.com/LowPostHoops">X: @LowPostHoops</a></li></ul></div><div><h4>Work with us</h4><ul><li><a href="../work/">Custom models and analysis</a></li><li><a href="mailto:avempati.work@gmail.com">avempati.work@gmail.com</a></li></ul></div><p class="fine">Ghost Screen models are our own measures, not official NBA statistics. One of our writers also writes for the <a href="https://enjoybasketball.beehiiv.com">Enjoy Basketball</a> newsletter.</p></div></footer>
 </body>
 </html>
