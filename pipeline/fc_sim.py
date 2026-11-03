@@ -44,6 +44,14 @@ def load_schedule():
         if len(S) > 1000: return S
     except Exception as e:
         print("live schedule unavailable:", str(e)[:120], flush=True)
+    try:                                   # NBA's CDN refuses GitHub's servers; ESPN's public feed is the backup
+        import fc_espn
+        S = fc_espn.schedule()
+        if len(S) > 1000:
+            print("schedule from ESPN:", len(S), "games,", int((S.status == 3).sum()), "final", flush=True)
+            return S
+    except Exception as e:
+        print("ESPN schedule unavailable:", str(e)[:120], flush=True)
     rows = []
     for line in open(os.path.join(INP, "schedule_2026.txt")):
         d, gs = line.strip().split(":")
