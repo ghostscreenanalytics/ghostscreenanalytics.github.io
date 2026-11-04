@@ -26,10 +26,21 @@ def link(u):
 
 
 def from_api(host):
-    posts = json.loads(get(host + "/api/v1/archive?sort=new&limit=30"))
+    return rows_of(json.loads(get(host + "/api/v1/archive?sort=new&limit=30")))
+
+
+def rows_of(posts):
     return [dict(title=p.get("title", ""), subtitle=p.get("subtitle") or p.get("description") or "", date=p.get("post_date"),
                  url=link(p.get("canonical_url")), image=p.get("cover_image")) for p in posts
             if p.get("audience") in ("everyone", "only_free", None) and p.get("type") in ("newsletter", "podcast", None) and p.get("canonical_url")]
+
+
+def from_reader(host):
+    # Substack blocks GitHub's servers, so this reads the same post list through a public reader service
+    url = "https://r.jina.ai/" + host + "/api/v1/archive?sort=new&limit=30"
+    req = urllib.request.Request(url, headers=dict(HEAD, **{"X-Return-Format": "text", "X-No-Cache": "true"}))
+    raw = urllib.request.urlopen(req, timeout=60).read().decode("utf-8")
+    return rows_of(json.loads(raw[raw.index("["):raw.rindex("]") + 1]))
 
 
 def from_feed(host):
@@ -44,7 +55,7 @@ def from_feed(host):
 
 def main():
     rows = None
-    for read, host in [(from_api, h) for h in HOSTS] + [(from_feed, h) for h in HOSTS]:
+    for read, host in [(from_api, h) for h in HOSTS] + [(from_feed, h) for h in HOSTS] + [(from_reader, SITE)]:
         try:
             rows = read(host)
             if rows:
