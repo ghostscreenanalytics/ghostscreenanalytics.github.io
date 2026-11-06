@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Clutch Score | Ghost Screen Analytics</title>
-<meta name="description" content="Who is the most clutch player in the NBA right now? A score built from clutch volume, efficiency and playoff clutch play, tested on whether it predicts the next season.">
+<meta name="description" content="Who is the most clutch player in the NBA right now? A score built from clutch scoring, efficiency, playmaking, defense and playoff clutch play, tested on whether it predicts the next season.">
 <style>
 :root{--bg:#ffffff;--ink:#121212;--mute:#6b6b6b;--line:#e3e3e3;--soft:#f5f5f4;--rule:#121212;--acc:#1f5fbf;--warm:#c25a00;--hot:#b3261e;--ok:#1a6d3a;--bar:#d9d9d6}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121212;--ink:#f2f2f2;--mute:#a0a0a0;--line:#2e2e2e;--soft:#1c1c1c;--rule:#f2f2f2;--acc:#6ea2f0;--warm:#f0a040;--hot:#ff8a80;--ok:#6fd08c;--bar:#3a3a3a}}
@@ -76,7 +76,7 @@ ul.l li:first-child{border-top:1px solid var(--line)}
 .seg button.on{background:var(--ink);color:var(--bg)}
 .stk{display:flex;height:10px;width:120px;background:var(--soft);vertical-align:middle;display:inline-flex}
 .stk i{display:block;height:100%}
-.c1{background:var(--bar)}.c2{background:var(--acc)}.c3{background:var(--warm)}
+.c1{background:var(--bar)}.c4{background:var(--ok)}.c2{background:var(--acc)}.c3{background:var(--warm)}
 .lg3{display:flex;gap:14px;font-size:.76rem;color:var(--mute);margin:6px 0 0;flex-wrap:wrap}
 .lg3 span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px;background:var(--c)}
 .bars{display:flex;align-items:flex-end;gap:4px;height:60px;margin-top:6px}
@@ -92,19 +92,19 @@ td.sc{font:700 .95rem Georgia,serif}
 <header class="mast"><div><a class="brand" href="../"><span class="mk">GS</span>Ghost Screen Analytics</a><nav><a href="../">Home</a><div class="dd on"><a href="../models/">Models</a><div class="menu"><a href="../forecast/">Season Forecast<small>1,000,000 seasons, every day</small></a><a href="../defense/">Three Gates<small>Rim protection explorer</small></a><a href="../durability/">Load &amp; Durability<small>Who misses games, and why</small></a><a href="../college/">College to NBA<small>Draft prospects, scored</small></a><a href="../breakout/">Breakout<small>Who is about to improve</small></a><a href="../aging/">Aging Curve<small>Who is about to decline</small></a><a href="../lineups/">Lineup Chemistry<small>Do five beat the sum of their parts</small></a><a href="../low-post-franchise-index/">Franchise Index<small>Who built it, who won it</small></a><a href="../joy/">Joy Rankings<small>The most fun games, rebuilt your way</small></a><a href="../clutch/" aria-current="page">Clutch<small>Who delivers when it's close</small></a><a class="all" href="../models/">All models and their tests</a></div></div><a href="../news/">News</a><a href="../work/">Work with us</a><a class="sub" href="https://ghostscreenanalytics.substack.com/subscribe">Subscribe</a></nav></div></header>
 <main>
 <h1>Who's the Most Clutch Player in the NBA Right Now?</h1>
-<p class="dek">The Clutch Score ranks every current NBA player on three things: how much he scores in the clutch, how efficiently he scores (turnovers count against him), and how he shows up in the playoffs, where every clutch play counts double. Clutch uses the NBA's definition: the last five minutes of the fourth quarter or overtime with the score within five. Rankings use the last three seasons, 2023-24 to 2025-26. A Ghost Screen Analytics measure, not an official NBA stat.</p>
+<p class="dek">The Clutch Score ranks every current NBA player on everything he does in the clutch that the play-by-play can see: how much he scores and how efficiently (turnovers count against him), his passing and offensive rebounds, his defense (steals, blocks, defensive rebounds, charges drawn, and how the other team scores while he's on the floor), and how he shows up in the playoffs, where every clutch play counts double. Clutch uses the NBA's definition: the last five minutes of the fourth quarter or overtime with the score within five. Rankings use the last three seasons, 2023-24 to 2025-26. A Ghost Screen Analytics measure, not an official NBA stat.</p>
 
 <div class="tldr" id="tldr"><p>Loading…</p></div>
 <div class="trend" id="trend"></div>
 
 <h2>The Clutch Score</h2>
-<p>Each score adds up three parts. <b>Volume</b>: credit for every clutch shot or turnover, compared with a replacement-level closer. <b>Efficiency</b>: extra credit for scoring more per chance than the league. <b>Big games</b>: his playoff clutch value, doubled. Click a player for the breakdown.</p>
+<p>Each score adds up four parts, all in points. <b>Scoring</b>: clutch volume and efficiency. <b>Playmaking</b>: assists and offensive rebounds. <b>Defense</b>: steals, blocks, defensive rebounds, charges drawn and his share of the team's clutch defense. <b>Big games</b>: all of the above in the playoffs, doubled. Click a player for the full breakdown.</p>
 <div class="ctl">
  <label>Window<span class="seg" id="win"><button data-w="now" class="on">Last 3 seasons</button><button data-w="career">Career</button></span></label>
  <label>Search<input type="text" id="q" placeholder="Player name"></label>
  <label>Team<select id="tm"><option value="">All teams</option></select></label>
 </div>
-<div class="lg3"><span style="--c:var(--bar)">Volume</span><span style="--c:var(--acc)">Efficiency</span><span style="--c:var(--warm)">Big games</span></div>
+<div class="lg3"><span style="--c:var(--bar)">Scoring</span><span style="--c:var(--acc)">Playmaking</span><span style="--c:var(--ok)">Defense</span><span style="--c:var(--warm)">Big games</span></div>
 <div class="grid">
  <div class="tablewrap"><table><thead><tr id="hd"></tr></thead><tbody class="click" id="tb"></tbody></table></div>
  <div id="card"></div>
@@ -115,20 +115,25 @@ td.sc{font:700 .95rem Georgia,serif}
  <div><b>Clutch chances</b>Every clutch shot (field goal attempts plus 0.44 × free throw attempts) and every clutch turnover.</div>
  <div><b>Volume</b>Chances × the gap between a league-average and a replacement-level clutch scorer (<span id="dl"></span> points per chance; replacement is the bottom 20% of clutch seasons). Taking a lot of clutch shots earns credit, as long as you're not replacement level.</div>
  <div><b>Efficiency</b>Chances × how many more points per chance he scores than the league. His clutch efficiency is pulled toward average on small samples (shrunk by chances / (chances + 300)) and blended 50/50 with his efficiency the rest of the game, because the backtest below shows normal efficiency predicts clutch efficiency better than clutch history alone.</div>
- <div><b>Big games</b>His playoff clutch points over a replacement-level closer, counted twice. Players whose teams missed the playoffs get zero here, not a penalty.</div>
+ <div><b>Playmaking</b>0.7 points per clutch assist and per offensive rebound (John Hollinger's Game Score weights).</div>
+ <div><b>Defense plays</b>1.0 per steal, 0.7 per block, 0.3 per defensive rebound (Game Score weights) and 1.0 per charge drawn, which takes away a possession like a steal. Fouls aren't penalized, because late-game fouls are often on purpose; their cost already shows up in the next piece.</div>
+ <div><b>Team defense on the floor</b>How many fewer points per chance the other team scored while he was on the floor, compared with the league, times those chances, split five ways. Pulled hard toward zero on small samples (chances / (chances + 1,000)), because on-court numbers are noisy and shared with teammates. Lineups are rebuilt from substitutions for every fourth quarter and overtime.</div>
+ <div><b>Big games</b>Everything above, from playoff clutch minutes, counted twice (scoring is measured against a replacement-level closer). Players whose teams missed the playoffs get zero here, not a penalty.</div>
  <div><b>Window</b>Regular season and playoffs, 2023-24 through 2025-26. Career view: every season since 1996-97.</div>
  <div><b>Who counts</b>Players on 2026-27 rosters in our Season Forecast, with 25+ clutch chances in the window.</div>
 </div>
 
-<h2>Backtest: does it predict next season?</h2>
-<p>A clutch score is only useful if it says something about the next close game. For every player-season from 2000-01 on, each version below used only the three seasons before it to rank players, and we checked how well that ranking matched their clutch value the following regular season. Weights were set before the test; seasons through 2012-13 are shown separately from the 2013-14 to 2025-26 test.</p>
+<h2>Backtest: does adding defense help?</h2>
+<p>The real goal in the clutch is outscoring the other team. So the test asks: using only a player's previous three seasons, which version best ranks how his team does in clutch minutes with him on the floor the next regular season (team points minus opponent points, compared with the league)? Every season from 2000-01 on. Weights were set before the test; seasons through 2012-13 are shown separately from 2013-14 to 2025-26.</p>
 <div class="tablewrap" style="max-height:none"><table class="tests"><thead><tr><th class="ns l">Version</th><th class="ns">Rank correlation, test seasons</th><th class="ns">Earlier seasons</th></tr></thead><tbody id="bt"></tbody></table></div>
 <p class="note" id="btn"></p>
 <p id="real"></p>
 
 <h2>What it doesn't know</h2>
 <ul class="l">
- <li>It measures scoring and ball security. Clutch defense, rebounds and passing aren't in it, and assists aren't credited.</li>
+ <li>Defense without tracking data is partial. One-on-one defense, contests and switches don't show up in play-by-play, so a great on-ball defender who doesn't get steals or blocks is undersold.</li>
+ <li>Team defense on the floor is shared with four teammates and the coach's scheme, which is why it's split five ways and shrunk.</li>
+ <li>Lineups couldn't be rebuilt for about 3% of fourth quarters and overtimes; those count for individual stats but not team defense.</li>
  <li>Shot difficulty isn't adjusted. A contested pull-up in the final seconds counts the same as an open layup.</li>
  <li>Late-game fouling sends more free throws to some players, which helps good free-throw shooters.</li>
  <li>Playoff value depends on making the playoffs. A great closer on a lottery team can't earn big-game credit.</li>
@@ -142,22 +147,23 @@ const fmt=(x,d=1)=>x==null?'':(x>0?'+':'')+x.toFixed(d);
 const pct=x=>x==null?'':(x*100).toFixed(1);
 const cls=x=>x>0?'pos':(x<0?'neg':'');
 let D,W='now',sortK='sc',sortD=-1,sel=null;
-const COLS=[['rk','#'],['n','Player','l'],['t','Team','l'],['sc','Clutch Score'],['mix','Mix','ns'],['pts','Clutch pts'],['pe','Pts per chance'],['ts','TS%'],['ppts','Playoff clutch pts']];
+const COLS=[['rk','#'],['n','Player','l'],['t','Team','l'],['sc','Clutch Score'],['mix','Mix','ns'],['off','Scoring'],['mk','Playmaking'],['dfn','Defense'],['big','Big games'],['pts','Clutch pts']];
 fetch('../data/clutch.json?'+Date.now()).then(r=>r.json()).then(j=>{D=j;init()});
 function L(){return W==='now'?D.now:D.career}
+const scoring=p=>p.vol+p.eff;
 function init(){
  const M=D.meta,N=D.now,f=n=>N.find(p=>p.n===n);
  const a=N[0],b=N[1],c=N[2];
- const mostpts=N.slice().sort((x,y)=>y.pts-x.pts)[0];
- const big=N.slice().sort((x,y)=>y.big-x.big)[0];
- const eff=N.filter(p=>p.ch>=150).sort((x,y)=>y.pe-x.pe)[0];
- const curry=f('Stephen Curry'), lbj=D.career[0];
- document.getElementById('tldr').innerHTML=`<p><b>${a.n}</b> is the most clutch player in the NBA right now, with a Clutch Score of <b>${a.sc.toFixed(1)}</b> over the last three seasons. He scored ${a.pts} clutch points (${a.ppts} of them in the playoffs) on ${pct(a.ts)}% true shooting, when the league shot ${pct(a.lts)}% in the clutch.</p><p><b>${b.n}</b> (${b.sc.toFixed(1)}) is second, carried by volume and the playoffs: ${mostpts.n===b.n?`he has the most clutch points of any current player in that span (${b.pts})`:`${b.pts} clutch points`}. <b>${c.n}</b> (${c.sc.toFixed(1)}) is third. ${curry?`<b>Stephen Curry</b> scored ${curry.pe.toFixed(2)} points per clutch chance, well above the league's ${curry.lpe.toFixed(2)}, but ranks #${curry.rk}: the score pulls clutch efficiency halfway toward a player's normal efficiency, and his playoff clutch value was negative (${fmt(curry.big)}).`:''}</p><p>Over full careers, <b>${lbj.n}</b> is first by a wide margin.</p>`;
+ const so=N.slice().sort((x,y)=>y.off-x.off)[0];
+ const de=N.slice().sort((x,y)=>y.dfn-x.dfn)[0];
+ const bg=N.slice().sort((x,y)=>y.big-x.big)[0];
+ const lbj=D.career[0];
+ document.getElementById('tldr').innerHTML=`<p><b>${a.n}</b> is the most clutch player in the NBA right now, with a Clutch Score of <b>${a.sc.toFixed(1)}</b> over the last three seasons. He's #${a.ork} as a clutch scorer (${a.pts} points), but he adds far more than scoring: ${a.ast} clutch assists, ${a.drb} defensive rebounds, ${a.stl} steals.</p><p><b>${b.n}</b> (${b.sc.toFixed(1)}) is second${so.n===b.n?' and the best pure clutch scorer':''}, and <b>${c.n}</b> (${c.sc.toFixed(1)}) is third. ${so.n!==b.n?`<b>${so.n}</b> is the best pure clutch scorer. `:''}<b>${de.n}</b> is the best clutch defender (#${de.rk} overall).</p><p>Over full careers, <b>${lbj.n}</b> is first by a wide margin.</p>`;
  document.getElementById('trend').innerHTML=[
-  ['#1 Clutch Score',a.n,`${a.sc.toFixed(1)}, last three seasons`],
-  ['Most clutch points',mostpts.n,`${mostpts.pts} points, ${M.window}`],
-  ['Most efficient (150+ chances)',eff.n,`${eff.pe.toFixed(2)} points per chance vs. league ${eff.lpe.toFixed(2)}`],
-  ['Biggest big-game boost',big.n,`+${big.big.toFixed(1)} from playoff clutch play`]
+  ['#1 Clutch Score',a.n,`${a.sc.toFixed(1)}, ${M.window}`],
+  ['Best clutch scorer',so.n,`#${so.rk} overall, ${so.pts} clutch points`],
+  ['Best clutch defender',de.n,`${de.blk} blocks, ${de.stl} steals, ${de.drb} defensive rebounds`],
+  ['Biggest big-game boost',bg.n,`+${bg.big.toFixed(1)} from playoff clutch minutes`]
  ].map(([t,v,s])=>`<div class="tc"><div class="t">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
  document.getElementById('dl').textContent=M.delta.toFixed(3);
  const teams=[...new Set(D.now.concat(D.career).map(p=>p.t))].sort();
@@ -168,29 +174,30 @@ function init(){
  ['q','tm'].forEach(id=>document.getElementById(id).oninput=draw);
  const bt=M.backtest,best=Object.entries(bt).sort((x,y)=>y[1].test_r-x[1].test_r)[0][0];
  document.getElementById('bt').innerHTML=Object.entries(bt).map(([k,v])=>`<tr><td class="l">${k}${k===best?' <b>(used for the ranking)</b>':''}</td><td class="v">${v.test_r.toFixed(3)}</td><td>${v.train_r.toFixed(3)}</td></tr>`).join('');
- document.getElementById('btn').textContent=`Test: ${M.n_test.toLocaleString()} player-seasons, 2013-14 to 2025-26 (earlier: ${M.n_train.toLocaleString()}). Rank correlation runs from 0 (no relationship) to 1 (perfect order).`;
+ document.getElementById('btn').textContent=`Test: ${M.n_test.toLocaleString()} player-seasons, 2013-14 to 2025-26 (earlier: ${M.n_train.toLocaleString()}). Rank correlation runs from 0 (no relationship) to 1 (perfect order). On-court results are noisy, so even the best version is a modest signal, but every added piece improved it.`;
  const R=M.is_clutch_real;
- document.getElementById('real').innerHTML=`Why blend in normal efficiency? In a separate test, a player's raw past clutch efficiency predicted his next clutch season <b>${Math.abs(R.backtest['Past clutch shooting, raw'].vs_benchmark_pct)}% worse</b> than guessing league average, while his normal efficiency did ${R.backtest['Past non-clutch shooting'].vs_benchmark_pct}% better. Clutch efficiency on its own is mostly noise. Volume and normal skill carry over.`;
+ document.getElementById('real').innerHTML=`Why is clutch efficiency blended with normal efficiency? In a separate test, a player's raw past clutch efficiency predicted his next clutch season <b>${Math.abs(R.backtest['Past clutch shooting, raw'].vs_benchmark_pct)}% worse</b> than guessing league average, while his normal efficiency did ${R.backtest['Past non-clutch shooting'].vs_benchmark_pct}% better.`;
  draw(); pick(a.id);
 }
 function draw(){
  const q=document.getElementById('q').value.toLowerCase(),tm=document.getElementById('tm').value;
  let X=L().filter(p=>(!q||p.n.toLowerCase().includes(q))&&(!tm||p.t===tm));
  X.sort((a,b)=>{let x=a[sortK],y=b[sortK];if(x==null)return 1;if(y==null)return -1;return (typeof x==='string'?x.localeCompare(y):x-y)*sortD});
- const mx=Math.max(...L().slice(0,1).map(p=>Math.max(1,p.vol)+Math.max(0,p.eff)+Math.max(0,p.big)));
+ const pos=v=>Math.max(0,v);
+ const mx=Math.max(...L().map(p=>pos(scoring(p))+pos(p.mk)+pos(p.dfn)+pos(p.big)));
  document.getElementById('tb').innerHTML=X.map(p=>{const seg=(v,c)=>v>0?`<i class="${c}" style="width:${v/mx*100}%"></i>`:'';
-  return `<tr data-id="${p.id}" class="${p.id===sel?'sel':''}"><td class="muted">${p.rk}</td><td class="nm l">${p.n}</td><td class="l muted">${p.t}</td><td class="sc">${p.sc.toFixed(1)}</td><td><span class="stk">${seg(p.vol,'c1')}${seg(p.eff,'c2')}${seg(p.big,'c3')}</span></td><td>${p.pts.toLocaleString()}</td><td class="${cls(p.pe-p.lpe)}">${p.pe.toFixed(2)}</td><td>${pct(p.ts)}</td><td>${p.ppts}</td></tr>`}).join('');
+  return `<tr data-id="${p.id}" class="${p.id===sel?'sel':''}"><td class="muted">${p.rk}</td><td class="nm l">${p.n}</td><td class="l muted">${p.t}</td><td class="sc">${p.sc.toFixed(1)}</td><td><span class="stk">${seg(scoring(p),'c1')}${seg(p.mk,'c2')}${seg(p.dfn,'c4')}${seg(p.big,'c3')}</span></td><td class="${cls(scoring(p))}">${scoring(p).toFixed(1)}</td><td>${p.mk.toFixed(1)}</td><td class="${cls(p.dfn)}">${p.dfn.toFixed(1)}</td><td class="${cls(p.big)}">${p.big.toFixed(1)}</td><td>${p.pts.toLocaleString()}</td></tr>`}).join('');
  document.querySelectorAll('#tb tr').forEach(tr=>tr.onclick=()=>pick(+tr.dataset.id));
 }
 function pick(id){sel=id;const p=L().find(x=>x.id===id);if(!p)return;document.querySelectorAll('#tb tr').forEach(tr=>tr.classList.toggle('sel',+tr.dataset.id===id));
  const s=(D.series[id]||[]).slice(-8),mv=Math.max(1,...s.map(x=>Math.abs(x[2])));
  document.getElementById('card').innerHTML=`<p class="nm">${p.n}</p><div class="sub">${p.t} · #${p.rk} of ${L().length} · ${W==='now'?D.meta.window:'career since 1996-97'}</div>
- <div class="big"><div><b>${p.sc.toFixed(1)}</b><span>Clutch Score</span></div><div><b>${p.pts.toLocaleString()}</b><span>Clutch points</span></div></div>
- <div class="sec"><div class="h">Breakdown</div><div class="kv"><span>Volume</span><span>${fmt(p.vol)}</span><span>Efficiency</span><span class="${cls(p.eff)}">${fmt(p.eff)}</span><span>Big games (playoffs × 2)</span><span class="${cls(p.big)}">${fmt(p.big)}</span></div></div>
- <div class="sec"><div class="h">Efficiency</div><div class="kv"><span>Points per clutch chance</span><span>${p.pe.toFixed(3)}</span><span>League</span><span>${p.lpe.toFixed(3)}</span><span>Clutch true shooting</span><span>${pct(p.ts)}%</span><span>League in clutch</span><span>${pct(p.lts)}%</span><span>His true shooting otherwise</span><span>${pct(p.tsn)}%</span><span>FG / 3PT / FT</span><span>${p.fg} · ${p.tp} · ${p.ft}</span><span>Turnovers / assists</span><span>${p.tov} / ${p.ast}</span></div></div>
- <div class="sec"><div class="h">Big games</div><div class="kv"><span>Playoff clutch points</span><span>${p.ppts}</span><span>vs. league-average closer</span><span class="${cls(p.padd)}">${fmt(p.padd)}</span></div></div>
- ${s.length?`<div class="sec"><div class="h">Clutch value by season</div><div class="bars">${s.map(x=>`<div><i class="${x[2]<0?'n':''}" style="height:${Math.abs(x[2])/mv*44}px"></i>${x[0].slice(2,4)}</div>`).join('')}</div></div>`:''}
- <p class="note">Volume, Efficiency and Big games add up to the Clutch Score. Season bars show clutch value over a replacement-level closer, playoffs doubled.</p>`;}
+ <div class="big"><div><b>${p.sc.toFixed(1)}</b><span>Clutch Score</span></div><div><b>#${p.ork}</b><span>Scorer</span></div><div><b>#${p.drk}</b><span>Defender</span></div></div>
+ <div class="sec"><div class="h">Breakdown</div><div class="kv"><span>Scoring volume</span><span>${fmt(p.vol)}</span><span>Scoring efficiency</span><span class="${cls(p.eff)}">${fmt(p.eff)}</span><span>Playmaking</span><span>${fmt(p.mk)}</span><span>Defense plays</span><span>${fmt(p.pl)}</span><span>Team defense on floor</span><span class="${cls(p.td)}">${fmt(p.td)}</span><span>Big games (playoffs × 2)</span><span class="${cls(p.big)}">${fmt(p.big)}</span></div></div>
+ <div class="sec"><div class="h">Scoring</div><div class="kv"><span>Clutch points</span><span>${p.pts.toLocaleString()} (${p.ppts} playoffs)</span><span>Points per chance</span><span>${p.pe.toFixed(3)} (league ${p.lpe.toFixed(3)})</span><span>Clutch true shooting</span><span>${pct(p.ts)}% (league ${pct(p.lts)}%)</span><span>FG / 3PT / FT</span><span>${p.fg} · ${p.tp} · ${p.ft}</span><span>Turnovers</span><span>${p.tov}</span></div></div>
+ <div class="sec"><div class="h">Playmaking and defense</div><div class="kv"><span>Assists / offensive rebounds</span><span>${p.ast} / ${p.orb}</span><span>Steals / blocks</span><span>${p.stl} / ${p.blk}</span><span>Defensive rebounds</span><span>${p.drb}</span><span>Charges drawn</span><span>${p.chg}</span><span>Opponent pts per chance, him on</span><span>${p.oe==null?'':p.oe.toFixed(3)} (league ${p.ld==null?'':p.ld.toFixed(3)})</span></div></div>
+ ${s.length?`<div class="sec"><div class="h">Clutch scoring value by season</div><div class="bars">${s.map(x=>`<div><i class="${x[2]<0?'n':''}" style="height:${Math.abs(x[2])/mv*44}px"></i>${x[0].slice(2,4)}</div>`).join('')}</div></div>`:''}
+ <p class="note">The six breakdown lines add up to the Clutch Score. Scorer and Defender ranks are among current players in this window.</p>`;}
 </script>
 </body>
 </html>
