@@ -14,6 +14,7 @@ SUM = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?even
 FIX = {"GS": "GSW", "NY": "NYK", "SA": "SAS", "NO": "NOP", "UTAH": "UTA", "WSH": "WAS", "PHO": "PHX", "BRK": "BKN"}
 KEEP = 105          # games kept for each on/off mix of the four bonuses
 TYPES = {2, 3, 5}   # regular season, playoffs, play-in
+RECHECK = 3         # days of already-read games to read again, so late stat fixes from ESPN get picked up
 
 
 def get(url):
@@ -79,20 +80,21 @@ def main():
     seen = set(D.get("seen", []))
     day = datetime.datetime.strptime(D["through"], "%Y-%m-%d").date()
     today = (datetime.datetime.utcnow() - datetime.timedelta(hours=5)).date()
-    new, last = [], day
-    d = day + datetime.timedelta(days=1)
+    new, last, redo = [], day, set()
+    d = min(day + datetime.timedelta(days=1), today - datetime.timedelta(days=RECHECK))
     while d < today:
         events = get(SB.format(d.strftime("%Y%m%d"))).get("events", [])
         done = [e for e in events if e.get("season", {}).get("type") in TYPES]
         if all(e["status"]["type"]["state"] == "post" for e in done):
             for e in done:
-                if e["id"] not in seen:
-                    new += game_rows(e, D, names); seen.add(e["id"])
-            last = d
+                if e["id"] in seen:
+                    redo.add("E" + e["id"])     # read it again and replace the old rows
+                new += game_rows(e, D, names); seen.add(e["id"])
+            last = max(last, d)
         else:
             break                       # a game is unfinished: try this day again tomorrow
         d += datetime.timedelta(days=1)
-    pool = D["r"] + new
+    pool = [r for r in D["r"] if r[14] not in redo] + new
     keep = set()
     for m in range(16):
         for i in sorted(range(len(pool)), key=lambda i: -score(pool[i], m))[:KEEP]:
